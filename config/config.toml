@@ -1,0 +1,52 @@
+# 模板引擎目录
+viewPath = "/home/www/templates/"
+# MySQL数据库配置
+[database]
+    [database.test]
+        host                 = "127.0.0.1"  #"地址"
+        port                 = "3306"       #"端口"
+        user                 = "root"       #"账号"
+        pass                 = "123456"     #"密码"
+        name                 = "test"      #"数据库名称"
+        type                 = "mysql"      #"数据库类型(mysql/pgsql/mssql/sqlite/oracle)"
+        role                 = "master"     #"(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+        debug                = "true"       #"(可选)开启调试模式"
+        prefix               = ""           #"(可选)表名前缀"
+        dryRun               = "false"      #"(可选)ORM空跑(只读不写)"
+        charset              = "utf8"       #"(可选)数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
+        weight               = "100"        #"(可选)负载均衡权重，用于负载均衡控制，不使用应用层的负载均衡机制请置空"
+        linkInfo             = ""           #"(可选)自定义数据库链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效，但是type必须有值"
+        maxIdle              = "10"         #"(可选)连接池最大闲置的连接数"
+        maxOpen              = "20"         #"(可选)连接池最大打开的连接数"
+        maxLifetime          = "30s"        #"(可选)连接对象可重复使用的时间长度"
+        createdAt            = "created_at" #"(可选)自动创建时间字段名称"
+	    updatedAt            = "updated_at" #"(可选)自动更新时间字段名称"
+	    deletedAt            = "deleted_at" #"(可选)软删除时间字段名称"
+        timeMaintainDisabled = "false"      #"(可选)是否完全关闭时间更新特性，true时CreatedAt/UpdatedAt/DeletedAt都将失效"
+    [database.production]
+        type = "mysql"
+        link = "root:123456@tcp(127.0.0.1:3306)/db_test"
+        debug  = false
+    [database.logger]
+        path   = "log/"
+        level  = "all"
+        stdout = true
+
+# Redis数据库配置
+[redis]
+    disk  = "127.0.0.1:6379,0"
+    cache = "127.0.0.1:6379,1"
+
+[logger]
+    path                 = "log/"   # 日志文件路径。默认为空，表示关闭，仅输出到终端
+    file                 = "{Y-m-d}.log" # 日志文件格式。默认为"{Y-m-d}.log"
+    prefix               = ""            # 日志内容输出前缀。默认为空	level                = "all"         # 日志输出级别
+    ctxKeys              = []            # Context上下文变量名称，自动打印Context的变量到日志中。默认为空
+    headerPrint          = false         # 是否打印日志的头信息。默认true
+    stdoutPrint          = true          # 日志是否同时输出到终端。默认true
+    rotateSize           = 0             # 按照日志文件大小对文件进行滚动切分。默认为0，表示关闭滚动切分特性
+    rotateExpire         = 0             # 按照日志文件时间间隔对文件滚动切分。默认为0，表示关闭滚动切分特性
+    rotateBackupLimit    = 0             # 按照切分的文件数量清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
+    rotateBackupExpire   = 0             # 按照切分的文件有效期清理切分文件，当滚动切分特性开启时有效。默认为0，表示不备份，切分则删除
+    rotateBackupCompress = 0             # 滚动切分文件的压缩比（0-9）。默认为0，表示不压缩
+    rotateCheckInterval  = "1h"          # 滚动切分的时间检测间隔，一般不需要设置。默认为1小时
